@@ -94,7 +94,6 @@ export default class WeekPlanner extends Component {
     deleteCalendarEvent = () => {
         let calendarEventToDelete = this.state.currentlyEditingCalendarEvent;
         let newState = {currentlyEditingCalendarEvent: null};
-        console.log(calendarEventToDelete);
         let currentEventsClone = jsonClone(this.state.calendarEvents);
         const indexToDelete = currentEventsClone.findIndex(calendarEvent => calendarEvent.id === calendarEventToDelete.id);
         const itemCountToDelete = 1;
