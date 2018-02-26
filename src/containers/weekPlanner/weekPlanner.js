@@ -11,6 +11,11 @@ import {
 import WeekPlan from "../../components/weekPlan/weekPlan";
 import CalendarEventForm from "../../components/calendarEventForm/calendarEventForm";
 
+/**
+ * @class
+ * A react-component which shows a weekplan which can be filled with events
+ * @type {WeekPlanner}
+ */
 export default class WeekPlanner extends Component {
     constructor(props, state) {
         super(props, state);
@@ -25,6 +30,11 @@ export default class WeekPlanner extends Component {
         formOpeningPoint: null
     }
 
+    /**
+     * Saves the calendarEvent, which is currently edited, into the "store"
+     * Updates existing items or creates new
+     * @return {void}
+     */
     saveCalendarEvent = () => {
         let calendarEventToSaveClone = jsonClone(this.state.currentlyEditingCalendarEvent);
 
@@ -45,6 +55,11 @@ export default class WeekPlanner extends Component {
         this.setState({currentlyEditingCalendarEvent: null});
     }
 
+    /**
+     * Creates an all new calendarEvent and adds to the store.
+     * @param  {CalendarEventData} calendarEventToCreate - the data which the newly created calendarEvent should have
+     * @return {void}
+     */
     createCalendarEvent = calendarEventToCreate => {
         let currentEventsClone = jsonClone(this.state.calendarEvents);
 
@@ -55,6 +70,12 @@ export default class WeekPlanner extends Component {
         this.setState({calendarEvents: currentEventsClone});
     }
 
+    /**
+     * Updates an existing calendarEvent.
+     * @param  {CalendarEventData} calendarEventToUpdate - the updated data for the calendarEvent which sould be updated
+     * @param  {int} calendarEventToUpdateIndex - the index on which the calendarEvent which sould be updated is located on
+     * @return {void}
+     */
     updateCalendarEvent = (calendarEventToUpdate, calendarEventToUpdateIndex) => {
         let currentEventsClone = jsonClone(this.state.calendarEvents);
 
@@ -66,6 +87,10 @@ export default class WeekPlanner extends Component {
         this.setState({calendarEvents: currentEventsClone});
     }
 
+    /**
+     * Deletes the existing event, which is currently being edited.
+     * @return {void}
+     */
     deleteCalendarEvent = () => {
         let calendarEventToDelete = this.state.currentlyEditingCalendarEvent;
         let newState = {currentlyEditingCalendarEvent: null};
@@ -87,6 +112,13 @@ export default class WeekPlanner extends Component {
         this.setState(newState);
     }
 
+    /**
+     * The change handler, which is invoked every time, when data of the calendarEvent,
+     * which is currently being edited, was changed by the user.
+     * @param  {string} field - the name of the property of which the value has been changed
+     * @param  {any} newValue - the new value which was entered by the user
+     * @return {void}
+     */
     editingCalendarEventChangeHandler = (field, newValue) => {
         let currentlyEditingCalendarEventClone = jsonClone(this.state.currentlyEditingCalendarEvent);
 
@@ -95,6 +127,10 @@ export default class WeekPlanner extends Component {
         this.setState({currentlyEditingCalendarEvent: currentlyEditingCalendarEventClone});
     }
 
+    /**
+     * Default react method which is used for rendering the component and for initalizing the children
+     * @return {ReactElement}
+     */
     render() {
         return (
             <div>

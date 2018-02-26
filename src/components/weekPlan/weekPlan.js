@@ -4,6 +4,11 @@ import {firstIndex, indexOffset} from "../../helpers";
 import DayPlan from "../dayPlan/dayPlan";
 import "./weekPlan.css";
 
+/**
+ * a react component which is responsible for viewing a week
+ * @param  {object} props - the properties which the component uses
+ * @return {ReactElement}
+ */
 export default props => {
     let relevantEvents = props.calendarEvents.filter(calendarEvent => {
         let calendarEventDate = moment(calendarEvent.date);

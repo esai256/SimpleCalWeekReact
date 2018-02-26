@@ -5,6 +5,11 @@ import CalendarEvent from "../calendarEvent/calendarEvent";
 import CalendarEventData from "../../dataClasses/calendarEventData/calendarEventData";
 import "./dayPlan.css";
 
+/**
+ * A react component, which is used for showing a day with its events
+ * @param  {object} props - the properties which the component uses
+ * @return {ReactElement} 
+ */
 export default props => {
     let calendarEventsClone = jsonClone(props.calendarEvents);
 

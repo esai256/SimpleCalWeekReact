@@ -1,28 +1,37 @@
-import React, {
-    Component
-} from "react";
+import React from "react";
 import "./calendarEvent.css";
 
 const hourIndex = 0;
 
-export default class extends Component {
+/**
+ * a react component which represents a calendarEvent
+ * @param  {object} props - the properties which the component uses
+ * @return {ReactElement}
+ */
+export default props => {
+    let gridRowStart = props.calendarEvent.start.split(":")[hourIndex];
+    let gridRowEnd = props.calendarEvent.end.split(":")[hourIndex];
 
-    render() {
+    return (
+        <div
+            className="event"
+            style={{
+                gridRowStart: gridRowStart,
+                gridRowEnd: gridRowEnd
+            }}
+        >
 
-        let gridRowStart = this.props.calendarEvent.start.split(":")[hourIndex];
-        let gridRowEnd = this.props.calendarEvent.end.split(":")[hourIndex];
+            {props.calendarEvent.title}
 
-        return (
-            <div
-                draggable="true"
-                className="event"
-                style={{gridRowStart: gridRowStart, gridRowEnd: gridRowEnd}}
-            >
-                {this.props.calendarEvent.title}
+            <br/>
 
-                <br/>
-                <input type="button" className="event__edit-button" onClick={e => this.props.onEdit(this.props.calendarEvent, {x: e.pageX, y: e.pageY})} value="Edit" />
-            </div>
-        );
-    }
+            <input
+                type="button"
+                className="event__edit-button"
+                onClick={e => props.onEdit(props.calendarEvent, {x: e.pageX, y: e.pageY})}
+                value="Edit"
+            />
+
+        </div>
+    );
 }
