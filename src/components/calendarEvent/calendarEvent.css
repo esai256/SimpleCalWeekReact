@@ -1,0 +1,18 @@
+.event {
+    background: lightblue;
+    border: blue 1px solid;
+    position: relative;
+}
+
+.event .event__edit-button {
+    display: none;
+}
+
+.event:hover .event__edit-button {
+    display: inline-block;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-right: 2px;
+    margin-bottom: 2px;
+}
