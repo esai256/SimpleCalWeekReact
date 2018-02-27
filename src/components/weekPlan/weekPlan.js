@@ -15,7 +15,7 @@ export default props => {
         let firstDayMoment = moment(props.days[firstIndex])
         let lastDayMoment = props.days[props.days.length - indexOffset];
 
-        return calendarEventDate.isBetween(firstDayMoment, lastDayMoment);
+        return calendarEventDate.isBetween(firstDayMoment, lastDayMoment, "day", "[]");
     });
 
     return (
