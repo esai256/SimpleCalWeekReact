@@ -41,7 +41,7 @@ export default class WeekPlanner extends Component {
     }
 
     /**
-     * Saves the calendarEvent, which is currently edited, into the "store"
+     * Saves the calendarEvent, which is currently edited, into the state
      * Updates existing items or creates new
      * @return {void}
      */
@@ -137,6 +137,12 @@ export default class WeekPlanner extends Component {
         this.setState({currentlyEditingCalendarEvent: currentlyEditingCalendarEventClone});
     }
 
+    /**
+     * Is triggered when a calendarEvent is dropped on another day.
+     * Changes the day of the calendarEvent to the date which it was dropped on.
+     * @param {object} dropData - the data of the drop -> the calendarEvent, and the new date
+     * @return {void}
+     */
     calendarEventDropedOnDayHandler = dropData => {
 
         let currentEventsClone = jsonClone(this.state.calendarEvents);
