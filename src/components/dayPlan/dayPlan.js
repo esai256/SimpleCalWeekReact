@@ -8,7 +8,7 @@ import "./dayPlan.css";
 /**
  * A react component, which is used for showing a day with its events
  * @param  {object} props - the properties which the component uses
- * @return {ReactElement} 
+ * @return {ReactElement}
  */
 export default props => {
     let calendarEventsClone = jsonClone(props.calendarEvents);
@@ -34,7 +34,19 @@ export default props => {
     });
 
     return (
-        <div className="dayplan">
+        <div
+            className="dayplan"
+            onDrop={e => {
+                e.preventDefault();
+                let calendarEvent = JSON.parse(e.dataTransfer.getData("text"));
+                let dropData = {calendarEvent, newDate: props.date};
+
+                props.onCalendarEventDropped(dropData);
+            }}
+            onDragOver={e => {
+                e.preventDefault();
+            }}
+        >
 
             <h1 className="dayplan__label">
                 {moment(props.date).format("dd DD.MM.YYYY")}
@@ -53,14 +65,14 @@ export default props => {
                 }
             }}>
                 {
-                    relevantCalendarEvents.map(calendarEvent =>
-                        <CalendarEvent
+                    relevantCalendarEvents.map(calendarEvent =>{
+                        return (<CalendarEvent
                             key={calendarEvent.id}
                             date={props.date}
                             calendarEvent={calendarEvent}
                             onEdit={props.onEditCalendarEvent}
-                        />
-                    )
+                        />);
+                    })
                 }
             </div>
 

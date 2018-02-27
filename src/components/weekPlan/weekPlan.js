@@ -27,6 +27,7 @@ export default props => {
                         calendarEvents={relevantEvents}
                         date={day}
                         onEditCalendarEvent={props.onEditCalendarEvent}
+                        onCalendarEventDropped={props.onCalendarEventDroppedOnDay}
                     />
                 )
             }

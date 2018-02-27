@@ -27,7 +27,17 @@ export default class WeekPlanner extends Component {
         calendarEvents: [],
         currentlyDisplayedDays: [],
         currentlyEditingCalendarEvent: null,
-        formOpeningPoint: null
+        formOpeningPoint: {
+            x: null,
+            y: null
+        },
+        draggedCalendarEventIndex: emptyIndex,
+        draggingPosition: {
+            x: null,
+            y: null
+        },
+        isDraggingActive: false,
+        currentlySelectedDateToDrop: null
     }
 
     /**
@@ -94,7 +104,7 @@ export default class WeekPlanner extends Component {
     deleteCalendarEvent = () => {
         let calendarEventToDelete = this.state.currentlyEditingCalendarEvent;
         let newState = {currentlyEditingCalendarEvent: null};
-        console.log(calendarEventToDelete);
+
         let currentEventsClone = jsonClone(this.state.calendarEvents);
         const indexToDelete = currentEventsClone.findIndex(calendarEvent => calendarEvent.id === calendarEventToDelete.id);
         const itemCountToDelete = 1;
@@ -127,6 +137,20 @@ export default class WeekPlanner extends Component {
         this.setState({currentlyEditingCalendarEvent: currentlyEditingCalendarEventClone});
     }
 
+    calendarEventDropedOnDayHandler = dropData => {
+
+        let currentEventsClone = jsonClone(this.state.calendarEvents);
+
+        let droppedCalendarEventIndex = currentEventsClone.findIndex(calendarEvent => dropData.calendarEvent.id === calendarEvent.id);
+
+        if(droppedCalendarEventIndex !== emptyIndex)
+        {
+            currentEventsClone[droppedCalendarEventIndex].date = dropData.newDate;
+
+            this.setState({calendarEvents: currentEventsClone, currentlyEditingCalendarEvent: null});
+        }
+    }
+
     /**
      * Default react method which is used for rendering the component and for initalizing the children
      * @return {ReactElement}
@@ -138,7 +162,13 @@ export default class WeekPlanner extends Component {
                 <WeekPlan
                     days={this.state.currentlyDisplayedDays}
                     calendarEvents={this.state.calendarEvents}
-                    onEditCalendarEvent={(calendarEvent, formOpeningPoint) => this.setState({currentlyEditingCalendarEvent: calendarEvent, formOpeningPoint: formOpeningPoint})}
+                    onEditCalendarEvent={(calendarEvent, formOpeningPoint) =>
+                        this.setState({
+                            currentlyEditingCalendarEvent: calendarEvent,
+                            formOpeningPoint: formOpeningPoint
+                        })
+                    }
+                    onCalendarEventDroppedOnDay={this.calendarEventDropedOnDayHandler}
                 />
 
                 {

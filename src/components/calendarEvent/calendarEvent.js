@@ -11,13 +11,19 @@ const hourIndex = 0;
 export default props => {
     let gridRowStart = props.calendarEvent.start.split(":")[hourIndex];
     let gridRowEnd = props.calendarEvent.end.split(":")[hourIndex];
+    let calendarEventStyle = {
+        gridRowStart: gridRowStart,
+        gridRowEnd: gridRowEnd
+    };
 
     return (
         <div
             className="event"
-            style={{
-                gridRowStart: gridRowStart,
-                gridRowEnd: gridRowEnd
+            style={calendarEventStyle}
+            draggable="true"
+            onDragStart={ev => {
+                ev.dataTransfer.setData("text/plain", JSON.stringify(props.calendarEvent));
+                ev.dataTransfer.dropEffect = "move";
             }}
         >
 
